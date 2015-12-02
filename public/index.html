@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <base href="/">
+
+    <title>Web My Way</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../styles/bootstrap/bootstrap.css" rel="stylesheet">
+    <!-- <link href="../styles/bootstrap/theme.css" rel="stylesheet"> -->
+    <link href="../styles/custom/carousel.css" rel="stylesheet">
+    <link href="../styles/custom/custom.css" rel="stylesheet">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div ng-include="'/views/common/header.html'"></div>
+    <div ng-view></div>
+    <div ng-include="'/views/common/footer.html'"></div>
+
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="/vendor/angular/angular.min.js"></script>
+    <script src="/vendor/angular/ui-bootstrap.min.js"></script>
+    <!-- <script src="/vendor/angular/angular-ui-router.min.js"></script> -->
+    <script src="/vendor/angular/angular-route.min.js"></script>
+    <script src="/vendor/angular/angular-resource.min.js"></script>
+
+    <script src="/scripts/app.js"></script>
+    <script src="/scripts/controllers/admin/admin-ctrl.js"></script>
+    <script src="/scripts/controllers/home-ctrl.js"></script>
+    <script src="/scripts/controllers/posts/create-post-ctrl.js"></script>
+    <script src="/scripts/controllers/posts/posts-ctrl.js"></script>
+    <script src="/scripts/controllers/profile/profile-ctrl.js"></script>
+
+    <script src="/scripts/services/posts/post-service.js"></script>
+</body>
+
+</html>
