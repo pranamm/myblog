@@ -1,4 +1,4 @@
-/* 
+/*
  * @Author: pranam
  * @Date:   2014-10-28 23:09:21
  * @Last Modified by:   pranam
@@ -100,6 +100,7 @@ var App = function() {
     ));*/
 
     self.app.use("/", express.static(self.dirName + "/public/"));
+    self.app.use("/admin", express.static(self.dirName + "/public/admin/"));
 
     self.connectDb = function(cb) {
         MongoClient.connect(self.connectionString, function(err, db) {
