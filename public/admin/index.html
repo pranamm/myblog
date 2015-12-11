@@ -12,10 +12,11 @@
     <title>WebMyWay - Admin</title>
 
     <link href="/admin/styles/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/admin/styles/custom/custom.css" rel="stylesheet">
 </head>
 <body ng-app>
     <div ng-include="'/admin/views/common/header.html'"></div>
-
+    <div ui-view></div>
 
     <script src="/admin/vendor/jquery/jquery.min.js"></script>
     <script src="/admin/vendor/bootstrap/bootstrap.min.js"></script>
@@ -24,7 +25,10 @@
     <!-- <script src="/admin/vendor/angular/angular-route.min.js"></script> -->
     <script src="/admin/vendor/angular/ui-bootstrap.min.js"></script>
     <script src="/admin/vendor/angular/angular-ui-router.min.js"></script>
+    <script src="/admin/vendor/showerrors/showErrors.min.js"></script>
 
     <script src="/admin/scripts/app.js"></script>
+    <script src="/admin/scripts/controllers/common/login-ctrl.js"></script>
+    <script src="/admin/scripts/filters/title-case-fltr.js"></script>
 </body
 </html>

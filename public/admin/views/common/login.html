@@ -1,0 +1,32 @@
+<div class="container" ng-controller="LoginCtrl">
+    <!--<div class="row login-alert">
+        <div class="col-sm-offset-1 col-sm-10">
+            <div class="alert alert-{{notificationType}} {{notificationHidden}} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <strong>{{notificationType | TitleCase}}!</strong>
+                <span>{{notification}}</span>
+            </div>
+        </div>
+    </div>-->
+    <form class="form-signin" role="form" name="loginForm" ng-submit="login(credentials)" novalidate>
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <div class="form-group" show-errors>
+            <input type="email" name="email" ng-model="credentials.email" class="form-control" placeholder="Email address" required autofocus ng-focus="resetNotification()">
+            <p class="help-block" ng-if="loginForm.email.$error.required">Email address is required</p>
+            <p class="help-block" ng-if="loginForm.email.$error.email">Email address is invalid</p>
+        </div>
+        <div class="form-group" show-errors>
+            <input type="password" name="password" ng-model="credentials.password" class="form-control" placeholder="Password" required>
+            <p class="help-block" ng-if="loginForm.password.$error.required">Password is required</p>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="loginForm.$invalid">Sign in</button>
+    </form>
+</div>
