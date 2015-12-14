@@ -4,13 +4,17 @@ var app = angular.module('app', [
     'ui.bootstrap.showErrors',
     'ui.router',
 
-    'app.common'
+    'app.common',
+    'app.posts',
+    'app.profile'
 ]);
 
-var commonModule = angular.module('app.common', []);
+var commonModule = angular.module('app.common', []),
+    postsModule = angular.module('app.posts', []),
+    profileModule = angular.module('app.profile', []);
 
-app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'showErrorsConfigProvider',
-    function($stateProvider, $urlRouterProvider, $httpProvider, showErrorsConfigProvider) {
+app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'showErrorsConfigProvider', 'USER_ROLES',
+    function($stateProvider, $urlRouterProvider, $httpProvider, showErrorsConfigProvider, USER_ROLES) {
         'use strict';
 
         showErrorsConfigProvider.showSuccess(true);
@@ -38,50 +42,112 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'showErrors
             url: "/login",
             templateUrl: '../admin/views/common/login.html',
             controller: 'LoginCtrl',
-            /*resolve: {
+            resolve: {
                 loggedinUser: checkLoggedin
             },
             data: {
                 authRoles: [USER_ROLES.ALL]
-            }*/
+            }
         })
 
-        /*.state("home", {
+        .state('profile', {
+            url: '/profile',
+            templateUrl: '../admin/views/profile/profile.html',
+            controller: "ProfileCtrl",
+            resolve: {
+                loggedinUser: checkLoggedin
+            },
+            data: {
+                authRoles: [USER_ROLES.ADMIN]
+            }
+        })
+
+        .state("home", {
             url: "/home",
             abstract: true,
-            templateUrl: '../warehouse/views/home.html',
+            templateUrl: '../admin/views/home.html',
             controller: 'HomeCtrl',
             resolve: {
                 loggedinUser: checkLoggedin
             },
             data: {
-                authRoles: [USER_ROLES.SUPERADMIN, USER_ROLES.ADMIN]
+                authRoles: [USER_ROLES.ADMIN]
             }
         })
 
         .state('home.dashboard', {
             url: '',
             abstract: true,
-            templateUrl: '../warehouse/views/dashboard/dashboard.html',
+            templateUrl: '../admin/views/dashboard/dashboard.html',
             resolve: {
                 loggedinUser: checkLoggedin
             },
             data: {
-                authRoles: [USER_ROLES.SUPERADMIN, USER_ROLES.ADMIN]
+                authRoles: [USER_ROLES.ADMIN]
             }
         })
 
         .state('home.dashboard.list', {
             url: '',
-            templateUrl: '../warehouse/views/dashboard/dashboard.list.html',
+            templateUrl: '../admin/views/dashboard/dashboard-list.html',
             controller: 'HomeCtrl',
             resolve: {
                 loggedinUser: checkLoggedin
             },
             data: {
-                authRoles: [USER_ROLES.SUPERADMIN, USER_ROLES.ADMIN]
+                authRoles: [USER_ROLES.ADMIN]
             }
-        })*/
+        })
+
+        /*Posts Routes*/
+        .state('home.posts', {
+            url: '/posts',
+            abstract: true,
+            templateUrl: '../admin/views/posts/posts.html',
+            resolve: {
+                loggedinUser: checkLoggedin
+            },
+            data: {
+                authRoles: [USER_ROLES.ADMIN]
+            }
+        })
+
+        .state('home.posts.list', {
+            url: '',
+            controller: "PostsCtrl",
+            templateUrl: '../admin/views/posts/posts-list.html',
+            resolve: {
+                loggedinUser: checkLoggedin
+            },
+            data: {
+                authRoles: [USER_ROLES.ADMIN]
+            }
+        })
+
+        /*Posts Routes*/
+        .state('home.images', {
+            url: '/images',
+            abstract: true,
+            templateUrl: '../admin/views/post-images/post-images.html',
+            resolve: {
+                loggedinUser: checkLoggedin
+            },
+            data: {
+                authRoles: [USER_ROLES.ADMIN]
+            }
+        })
+
+        .state('home.images.list', {
+            url: '',
+            controller: "PostImagesCtrl",
+            templateUrl: '../admin/views/post-images/post-images-list.html',
+            resolve: {
+                loggedinUser: checkLoggedin
+            },
+            data: {
+                authRoles: [USER_ROLES.ADMIN]
+            }
+        })
 
         /*Organizations Routes*/
         /*.state('home.organizations', {

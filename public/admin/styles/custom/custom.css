@@ -1,3 +1,53 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    padding-top: 55px;
+    margin-bottom: 60px;
+    /* background-color: #EDEDF7; */
+}
+
+.nav-pills span,
+.category span,
+.dropdown-menu span {
+    padding-right: 5px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.admin-controls {
+    margin-bottom: 10px;
+}
+
+.signin-margin-top {
+    margin-top: 30px;
+}
+
+.content {
+    margin-top: 15px;
+}
+
+.alert .hidden {
+    display: none;
+}
+
+.navbar-brand {
+    padding-top: 7px;
+}
+
+
+.login-alert {
+    margin-top: 30px;
+}
+
+hr {
+    border-top: 1px solid #1c1e22;
+}
+
 /* Signin Form Style Block */
 .form-signin {
     max-width: 330px;

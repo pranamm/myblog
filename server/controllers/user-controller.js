@@ -1,4 +1,4 @@
-/* 
+/*
  * @Author: pranam
  * @Date:   2014-11-05 23:14:44
  * @Last Modified by:   pranam
@@ -16,7 +16,7 @@ UserController.prototype.registerUser = function(req, res) {
         lastName: req.body.lastName,
         email: req.body.email,
         password: req.body.password,
-        isAdmin: req.body.isAdmin
+        role: req.body.role
     };
 
     userService.registerUser(user)
@@ -28,7 +28,7 @@ UserController.prototype.registerUser = function(req, res) {
                     firstName: user.firstName,
                     lastName: user.lastName,
                     email: user.email,
-                    isAdmin: user.isAdmin
+                    role: user.role
                 };
 
                 res.send(SETTINGS.RESPONSE);

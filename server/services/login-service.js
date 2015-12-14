@@ -1,4 +1,4 @@
-/* 
+/*
  * @Author: pranam
  * @Date:   2014-10-28 23:09:21
  * @Last Modified by:   pranam
@@ -13,16 +13,25 @@ var passport = require('passport'),
 module.exports.localLogin = function(req, res, next) {
     return passport.authenticate('local-signin', function(err, user, msg) {
         if (err) {
-            return next(err);
+            return res.status(401).send(err);
         }
-        if (!user) {
-            return res.redirect('/');
+
+        var finalUser = {
+            _id: user._id.toString(),
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            role: user.role
         }
-        req.logIn(user, function(err) {
+
+        req.user = finalUser;
+
+        req.logIn(finalUser, function(err) {
             if (err) {
                 return next(err);
             }
-            return res.redirect('/api/loggedin/');
+
+            return res.status(200).send(req.user);
         });
     })(req, res, next);
 };
@@ -32,12 +41,10 @@ module.exports.twitterLogin = function() {};
 module.exports.googleLogin = function() {};
 
 passport.serializeUser(function(user, done) {
-    console.log("serializing " + user.email);
     done(null, user);
 });
 
 passport.deserializeUser(function(obj, done) {
-    console.log("deserializing " + obj);
     done(null, obj);
 });
 
@@ -49,8 +56,7 @@ passport.use('local-signin', new LocalStrategy({
     },
     function(req, username, password, done) {
         SETTINGS.DB.collection('users').findOne({
-            email: username,
-            isAdmin: true
+            email: username
         }, function(err, user) {
             // Condition to deal with mongodb errors or network errors
             if (err) {
@@ -59,9 +65,7 @@ passport.use('local-signin', new LocalStrategy({
 
             // Condition to deal with invalid user
             if (!user) {
-                done(new Error("Unknown user"), false, {
-                    message: 'Unknown user.'
-                });
+                done("Invalid username or password", null);
             }
 
             // Condition to deal with invalid password
@@ -71,9 +75,7 @@ passport.use('local-signin', new LocalStrategy({
                     done(null, user);
                 } else {
                     req.user = null;
-                    done(new Error("Invalid credentials"), false, {
-                        message: 'Invalid credentials.'
-                    });
+                    done("Invalid username or password", null);
                 }
             }
         });

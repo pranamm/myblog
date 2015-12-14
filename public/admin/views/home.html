@@ -1,0 +1,78 @@
+<div class="container-fluid">
+    <div class="row content">
+        <div class="hidden-xs col-sm-2 col-md-2 affix">
+            <ul class="nav nav-pills nav-stacked">
+                <li ng-class="{ active: $state.includes('home.dashboard') }" auth-roles="admin">
+                    <a class="icon-placement" ui-sref=".dashboard.list">
+                        <span class="glyphicon glyphicon-home"></span><span class="hidden-xs hidden-sm">Home</span>
+                    </a>
+                </li>
+                <li ng-class="{ active: $state.includes('home.posts') }" auth-roles="admin">
+                    <a class="icon-placement" ui-sref=".posts.list">
+                        <span class="glyphicon glyphicon-blackboard"></span><span class="hidden-xs hidden-sm">Posts</span>
+                    </a>
+                </li>
+                <li ng-class="{ active: $state.includes('home.images') }" auth-roles="admin">
+                    <a class="icon-placement" ui-sref=".images.list">
+                        <span class="glyphicon glyphicon-picture"></span><span class="hidden-xs hidden-sm">Images</span>
+                    </a>
+                </li>
+                <li ng-class="{ active: $state.includes('home.users') }" auth-roles="admin">
+                    <a class="icon-placement" ui-sref=".users.list">
+                        <span class="glyphicon glyphicon-user"></span><span class="hidden-xs hidden-sm">Users</span>
+                    </a>
+                </li>
+                <li ng-class="{ active: $state.includes('home.subscription') }" auth-roles="admin">
+                    <a class="icon-placement" ui-sref=".subscription.list">
+                        <span class="glyphicon glyphicon-phone-alt"></span><span class="hidden-xs hidden-sm">Subscription</span>
+                    </a>
+                </li>
+                <li ng-class="{ active: $state.includes('home.comments') }" auth-roles="admin">
+                    <a class="icon-placement" ui-sref=".comments">
+                        <span class="glyphicon glyphicon-comment"></span><span class="hidden-xs hidden-sm">Comments</span>
+                    </a>
+                </li>
+                <li ng-class="{ active: $state.includes('home.settings') }" auth-roles="admin">
+                    <a class="icon-placement" ui-sref=".settings">
+                        <span class="glyphicon glyphicon-cog"></span><span class="hidden-xs hidden-sm">Settings</span>
+                    </a>
+                </li>
+                <li ng-class="{ active: $state.includes('home.stats') }" auth-roles="admin">
+                    <a class="icon-placement" ui-sref=".stats">
+                        <span class="glyphicon glyphicon-stats"></span><span class="hidden-xs hidden-sm">Stats</span>
+                    </a>
+                </li>
+                <li ng-class="{ active: $state.includes('home.promotions') }" auth-roles="admin">
+                    <a class="icon-placement" ui-sref=".promotions">
+                        <span class="glyphicon glyphicon-camera"></span><span class="hidden-xs hidden-sm">Promotions</span>
+                    </a>
+                </li>
+                <li ng-class="{ active: $state.includes('home.cms') }" auth-roles="admin">
+                    <a class="icon-placement" ui-sref=".cms">
+                        <span class="glyphicon glyphicon-wrench"></span><span class="hidden-xs hidden-sm">CMS</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-xs-12 col-sm-offset-2 col-sm-10">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    <div class="alert alert-{{notificationType}} {{notificationHidden}} alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <strong>{{notificationType | TitleCase}}!</strong>
+                        <span>{{notification}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    <div ui-view></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

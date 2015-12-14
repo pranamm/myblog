@@ -14,7 +14,7 @@
     <link href="/admin/styles/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="/admin/styles/custom/custom.css" rel="stylesheet">
 </head>
-<body ng-app>
+<body ng-controller="AppCtrl">
     <div ng-include="'/admin/views/common/header.html'"></div>
     <div ui-view></div>
 
@@ -28,7 +28,18 @@
     <script src="/admin/vendor/showerrors/showErrors.min.js"></script>
 
     <script src="/admin/scripts/app.js"></script>
+    <script src="/admin/scripts/controllers/common/app-ctrl.js"></script>
+    <script src="/admin/scripts/controllers/common/home-ctrl.js"></script>
     <script src="/admin/scripts/controllers/common/login-ctrl.js"></script>
+    <script src="/admin/scripts/services/auth-service.js"></script>
+    <script src="/admin/scripts/constants/app-constants.js"></script>
+
+    <script src="/admin/scripts/controllers/profile/profile-ctrl.js"></script>
+
+    <script src="/admin/scripts/controllers/posts/posts-ctrl.js"></script>
+    <script src="/admin/scripts/controllers/posts/post-images-ctrl.js"></script>
+
     <script src="/admin/scripts/filters/title-case-fltr.js"></script>
+    <script src="/admin/scripts/directives/roles-dirc.js"></script>
 </body
 </html>

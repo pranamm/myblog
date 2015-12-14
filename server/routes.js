@@ -1,4 +1,4 @@
-/* 
+/*
  * @Author: pranam
  * @Date:   2014-10-30 23:37:40
  * @Last Modified by:   pranam
@@ -32,7 +32,7 @@ module.exports.initApp = function(exp) {
     });
 
     app.get('/api/loggedin', function(req, res) {
-        res.send(req.isAuthenticated() ? true : false);
+        res.send(req.isAuthenticated() ? req.user : '0');
     });
 
     app.post('/api/user', userController.registerUser);

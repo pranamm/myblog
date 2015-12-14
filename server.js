@@ -61,7 +61,7 @@ var App = function() {
     self.app = express();
 
 
-    self.app.use(logger('combined'));
+    //self.app.use(logger('combined'));
     self.app.use(cookieParser());
     self.app.use(bodyParser.urlencoded({
         extended: true
