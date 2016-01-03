@@ -3,6 +3,9 @@ var app = angular.module('app', [
     'ui.bootstrap',
     'ui.bootstrap.showErrors',
     'ui.router',
+    'ngTagsInput',
+    'gist',
+    'summernote',
 
     'app.common',
     'app.posts',
@@ -50,17 +53,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'showErrors
             }
         })
 
-        .state('profile', {
-            url: '/profile',
-            templateUrl: '../admin/views/profile/profile.html',
-            controller: "ProfileCtrl",
-            resolve: {
-                loggedinUser: checkLoggedin
-            },
-            data: {
-                authRoles: [USER_ROLES.ADMIN]
-            }
-        })
+
 
         .state("home", {
             url: "/home",
@@ -124,6 +117,30 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'showErrors
             }
         })
 
+        .state('home.posts.draft', {
+            url: '/draft-post',
+            controller: "PostsCtrl",
+            templateUrl: '../admin/views/posts/post-draft.html',
+            resolve: {
+                loggedinUser: checkLoggedin
+            },
+            data: {
+                authRoles: [USER_ROLES.ADMIN]
+            }
+        })
+
+        .state('home.posts.edit', {
+            url: '/edit-post/:postId',
+            controller: "PostsCtrl",
+            templateUrl: '../admin/views/posts/post-draft.html',
+            resolve: {
+                loggedinUser: checkLoggedin
+            },
+            data: {
+                authRoles: [USER_ROLES.ADMIN]
+            }
+        })
+
         /*Posts Routes*/
         .state('home.images', {
             url: '/images',
@@ -141,6 +158,18 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'showErrors
             url: '',
             controller: "PostImagesCtrl",
             templateUrl: '../admin/views/post-images/post-images-list.html',
+            resolve: {
+                loggedinUser: checkLoggedin
+            },
+            data: {
+                authRoles: [USER_ROLES.ADMIN]
+            }
+        })
+
+        .state('home.profile', {
+            url: '/profile',
+            templateUrl: '../admin/views/profile/profile.html',
+            controller: "ProfileCtrl",
             resolve: {
                 loggedinUser: checkLoggedin
             },

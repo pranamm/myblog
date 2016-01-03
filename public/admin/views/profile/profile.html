@@ -1,1 +1,135 @@
-<h1>My Profile</h1>
+<div class="row">
+    <div class="col-sm-12">
+        <h3>My Profile</h3>
+        <hr>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <ol class="breadcrumb">
+            <li><a href="admin/#home">Home</a></li>
+            <li class="active">My Profile</li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">Update Profile</h3>
+            </div>
+            <div class="panel-body">
+                <!-- <button class="btn btn-sm pull-right" ng-class="{'btn-warning':!editMode, 'btn-primary':editMode}" ng-click="toggleEditMode()">Edit</button> -->
+                <form class="form-horizontal" role="form" name="editProfileForm" ng-submit="updateProfile()" novalidate>
+                    <div class="form-group" show-errors>
+                        <label for="firstName" class="col-sm-2 control-label">First Name</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" ng-model="profile.firstName" required>
+                            <p class="help-block" ng-if="editProfileForm.firstName.$error.required">First Name is required</p>
+                        </div>
+                    </div>
+                    <div class="form-group" show-errors>
+                        <label for="lastName" class="col-sm-2 control-label">Last Name</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" ng-model="profile.lastName" required>
+                            <p class="help-block" ng-if="editProfileForm.lastName.$error.required">Last Name is required</p>
+                        </div>
+                    </div>
+                    <div class="form-group" show-errors>
+                        <label for="email" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Email" ng-model="profile.email" required ng-disabled="true">
+                            <p class="help-block" ng-if="editProfileForm.email.$error.required">Email is required</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="skillSet" class="col-sm-2 control-label">Skill Set</label>
+                        <div class="col-sm-5">
+                            <tags-input id="skillSet" ng-model="skillSet"></tags-input>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="col-sm-2 control-label">Description</label>
+                        <div class="col-sm-5">
+                            <textarea id="description" class="form-control" rows="5" ng-model="profile.description"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group" show-errors>
+                        <label for="profilePic" class="col-sm-2 control-label">Profile Picture</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="profilePic" name="profilePic" placeholder="Profile Pic" ng-model="profile.profilePic" required>
+                            <p class="help-block" ng-if="editProfileForm.profilePic.$error.required">Profile Picture is required</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-5 col-sm-offset-2">
+                            <img ng-src="{{profile.profilePic}}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="linkedInUrl" class="col-sm-2 control-label">LinkedIn</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="linkedInUrl" name="linkedInUrl" placeholder="LinkedIn" ng-model="profile.linkedInUrl" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="facebookUrl" class="col-sm-2 control-label">Facebook</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="facebookUrl" name="facebookUrl" placeholder="Facebook" ng-model="profile.facebookUrl" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="twitterUrl" class="col-sm-2 control-label">Twitter</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="twitterUrl" name="twitterUrl" placeholder="Twitter" ng-model="profile.twitterUrl" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-5">
+                            <a href="/admin/#home" type="button" class="btn btn-info">Cancel</a>
+                            <button type="submit" class="btn btn-success" ng-disabled="editProfileForm.$invalid">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">Update Password</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" name="editProfilePasswordForm" ng-submit="updateProfilePassword()" novalidate>
+                    <div class="form-group" show-errors>
+                        <label for="oldPassword" class="col-sm-2 control-label">Old Password</label>
+                        <div class="col-sm-5">
+                            <input type="password" class="form-control" id="oldPassword" name="oldPassword" placeholder="Old Password" ng-model="profilePass.oldPassword" required>
+                            <p class="help-block" ng-if="editProfilePasswordForm.oldPassword.$error.required">Old Password is required</p>
+                        </div>
+                    </div>
+                    <div class="form-group" show-errors>
+                        <label for="newPassword" class="col-sm-2 control-label">New Password</label>
+                        <div class="col-sm-5">
+                            <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="New Password" ng-model="profilePass.newPassword" ng-required="passwordRequired" ng-change="validatePassword()">
+                            <p class="help-block" ng-if="editProfilePasswordForm.newPassword.$error.required">Old Password is required</p>
+                            <p class="help-block" ng-if="editProfilePasswordForm['newPassword'].$error.password">{{passwordValidMsg}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group" show-errors>
+                        <label for="confirmPassword" class="col-sm-2 control-label">Confirm New Password</label>
+                        <div class="col-sm-5">
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" ng-model="profilePass.confirmPassword" ng-change="validatePassword()">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-5">
+                            <a href="/admin/#home" type="button" class="btn btn-info">Cancel</a>
+                            <button type="submit" class="btn btn-success" ng-disabled="editProfilePasswordForm.$invalid">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

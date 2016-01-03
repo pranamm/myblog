@@ -1,1 +1,84 @@
-<h1>Posts</h1>
+<div class="row">
+    <div class="col-sm-12">
+        <h3>Manage Posts</h3>
+        <hr>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <ol class="breadcrumb">
+            <li><a href="admin/#home">Home</a></li>
+            <li class="active">Manage Posts</li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="btn-group">
+            <a class="btn btn-info" title="Draft Post" ui-sref="home.posts.draft">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+            <a class="btn btn-warning" title="Publish Posts" ng-click="confirmPublishPosts()">
+                <span class="glyphicon glyphicon-folder-close"></span>
+            </a>
+            <a class="btn btn-warning" title="Unpublish Posts" ng-click="confirmUnPublishPosts()">
+                <span class="glyphicon glyphicon-folder-open"></span>
+            </a>
+            <a class="btn btn-danger" title="Delete Posts" ng-click="confirmDeletePosts()">
+                <i class="glyphicon glyphicon-trash"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-sm-offset-3 col-sm-5">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input type="text" class="form-control" placeholder="Search Posts" ng-model="postsQuery">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div ng-init="getAllPosts()"></div>
+<!-- <gist id="9b43ae7478dfb590b68e"></gist> -->
+<div class="row admin-controls">
+    <div class="col-sm-12 table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Title</th>
+                    <th>Tags</th>
+                    <th>Author</th>
+                    <th>isPublished</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="post in posts | filter:postsQuery">
+                <tr>
+                    <td>
+                        <input type="checkbox" id="isSelected" name="isSelected" class="pull-left" ng-click='setPostSelected(post._id)'>
+                    </td>
+                    <td>{{post.title}}</td>
+                    <td>{{post.tags.join(",")}}</td>
+                    <td>{{post.author.name}}</td>
+                    <td><span class="glyphicon" ng-class="{ 'glyphicon-remove': !post.isPublished, 'glyphicon-ok': post.isPublished } "></span></td>
+                    <td>
+                        <a class="btn btn-warning btn-xs" title="Edit" href="admin/#home/posts/edit-post/{{post._id}}">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                        <a class="btn btn-xs btn-warning" title="Publish" ng-if="!post.isPublished" ng-click="confirmPublishPost(post._id)">
+                            <span class="glyphicon glyphicon-folder-close"></span>
+                        </a>
+                        <a class="btn btn-xs btn-warning" title="Unpublish" ng-if="post.isPublished" ng-click="confirmUnPublishPost(post._id)">
+                            <span class="glyphicon glyphicon-folder-open"></span>
+                        </a>
+                        <a class="btn btn-xs btn-danger" title="Delete" ng-click="confirmDeletePost(post._id)">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

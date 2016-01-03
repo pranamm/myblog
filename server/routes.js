@@ -2,7 +2,7 @@
  * @Author: pranam
  * @Date:   2014-10-30 23:37:40
  * @Last Modified by:   pranam
- * @Last Modified time: 2014-11-13 23:29:48
+ * @Last Modified time: 2016-01-04 01:09:36
  */
 
 var loginController = require('./controllers/login-controller'),
@@ -39,5 +39,19 @@ module.exports.initApp = function(exp) {
 
     app.get('/api/profile', userController.getProfile);
 
-    app.post('/api/posts', postsController.createPost);
+    app.put('/api/profile/:id', userController.updateProfile);
+
+    app.put('/api/updatePass/:id', userController.updatePassword);
+
+    app.post('/api/draftPost', postsController.draftPost);
+
+    app.get('/api/posts', postsController.getPosts);
+
+    app.get('/api/post/:id', postsController.getPost);
+
+    app.post('/api/publishPosts', postsController.publishPosts);
+
+    app.post('/api/unPublishPosts', postsController.unPublishPosts);
+
+    app.post('/api/deletePosts', postsController.deletePosts);
 }

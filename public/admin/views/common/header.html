@@ -16,13 +16,13 @@
                 <li ng-show="loggedInStatus" class="dropdown" ng-class="{ open : profileDD }" ng-init="profileDD = false" ng-click="profileDD = !profileDD">
                     <a class="dropdown-toggle">{{loggedinUser.firstName}} <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="admin/#profile"><span class="glyphicon glyphicon-user"></span>profile</a></li>
-                        <li><a href="admin/#profile"><span class="glyphicon glyphicon-lock"></span>change password</a></li>
+                        <li><a ui-sref=".home.profile"><span class="glyphicon glyphicon-user"></span>profile</a></li>
+                        <li><a ui-sref=".home.profile"><span class="glyphicon glyphicon-lock"></span>change password</a></li>
                         <li class="divider"></li>
                         <li><a ng-click="logout()" id="logout" class="pointer"><span class="glyphicon glyphicon-log-out"></span>logout</a></li>
                     </ul>
                 </li>
-                <li ng-show="!loggedInStatus" id="login"><a href="#login">Log In</a>
+                <li ng-show="!loggedInStatus" id="login"><a href="admin/#login">Log In</a>
                 </li>
             </ul>
         </div>
