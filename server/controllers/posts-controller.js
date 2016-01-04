@@ -2,7 +2,7 @@
  * @Author: pranam
  * @Date:   2014-11-13 22:34:02
  * @Last Modified by:   pranam
- * @Last Modified time: 2016-01-04 00:58:12
+ * @Last Modified time: 2016-01-04 22:02:18
  */
 
 var postService = require('../services/posts-service'),
@@ -85,7 +85,8 @@ PostController.prototype.draftPost = function(req, res) {
         author: {
             id: req.user._id,
             name: req.user.firstName + " " + req.user.lastName
-        }
+        },
+        postBody: req.body.postBody
     };
 
     postService.draftPost(post)
@@ -106,8 +107,35 @@ PostController.prototype.draftPost = function(req, res) {
         });
 }
 
-PostController.prototype.editPost = function(req, res) {
+PostController.prototype.modifyPost = function(req, res) {
+    var post = {
+        title: req.body.title,
+        tags: req.body.tags,
+        permalink: req.body.title.split(" ").join("_"),
+        isPublished: req.body.isPublished,
+        author: {
+            id: req.user._id,
+            name: req.user.firstName + " " + req.user.lastName
+        },
+        postBody: req.body.postBody
+    };
 
+    postService.modifyPost(req.params.id, post)
+        .then(function(post) {
+            if (post) {
+                SETTINGS.RESPONSE.errCode = 0;
+                SETTINGS.RESPONSE.message = "Post modified successfully";
+                SETTINGS.RESPONSE.data = post
+
+                res.send(SETTINGS.RESPONSE);
+            }
+        })
+        .fail(function(err) {
+            SETTINGS.RESPONSE.errCode = 1;
+            SETTINGS.RESPONSE.message = err.message;
+            SETTINGS.RESPONSE.data = null;
+            res.send(SETTINGS.RESPONSE);
+        });
 }
 
 PostController.prototype.publishPosts = function(req, res) {

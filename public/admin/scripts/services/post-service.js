@@ -42,6 +42,19 @@ postsModule.factory('PostService', ['$http', '$q',
             return deferred.promise;
         };
 
+        postService.modifyPost = function(postId, post) {
+            var deferred = $q.defer();
+
+            $http.post('/api/modifyPost/' + postId, post).then(function(res) {
+                var data = res.data;
+                deferred.resolve(data);
+            }, function(err) {
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+        };
+
         postService.publishPosts = function(posts) {
             var deferred = $q.defer();
 

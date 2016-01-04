@@ -2,7 +2,7 @@
  * @Author: pranam
  * @Date:   2014-10-28 23:09:21
  * @Last Modified by:   pranam
- * @Last Modified time: 2014-11-05 23:05:30
+ * @Last Modified time: 2016-01-04 22:12:22
  */
 
 var http = require('http'),
@@ -63,10 +63,13 @@ var App = function() {
 
     //self.app.use(logger('combined'));
     self.app.use(cookieParser());
+    self.app.use(bodyParser.json({
+        limit: '50mb'
+    }));
     self.app.use(bodyParser.urlencoded({
+        limit: '50mb',
         extended: true
     }));
-    self.app.use(bodyParser.json());
     self.app.use(methodOverride('X-HTTP-Method-Override'));
     self.app.use(session({
         secret: 'misthi',

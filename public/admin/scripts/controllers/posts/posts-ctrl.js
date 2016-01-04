@@ -3,24 +3,32 @@ postsModule.controller('PostsCtrl', ['$scope', '$stateParams', '$rootScope', '$l
         'use strict';
 
         $scope.currentPage = 'Draft Post';
-        $scope.postBody = [];
+        $scope.isNew = true;
+        //$scope.postBody = [];
         $scope.selectedPosts = [];
 
-        $scope.insertPostItem = function(type, idx){
+        /*$scope.insertPostItem = function(type, idx) {
             var postItem = {
                 type: type,
                 value: ''
             };
 
-            //$scope.postBody.push(postItem);
             $scope.postBody.splice(idx + 1, 0, postItem);
         }
 
         $scope.deletePostItem = function(idx) {
             $scope.postBody.splice(idx, 1);
-        };
+        };*/
 
-        $scope.draftPost = function() {
+        $scope.savePost = function() {
+            if ($scope.isNew) {
+                draftPost();
+            } else {
+                editPost();
+            }
+        }
+
+        function draftPost() {
             var tags = [];
 
             $scope.tags.forEach(function(item, idx) {
@@ -28,8 +36,9 @@ postsModule.controller('PostsCtrl', ['$scope', '$stateParams', '$rootScope', '$l
             });
             if ($scope.draftPostForm.$valid) {
                 $scope.post.tags = tags;
+                $scope.post.postBody = $scope.postBody;
 
-                /*PostService.draftPost($scope.post).then(function(response) {
+                PostService.draftPost($scope.post).then(function(response) {
                     $rootScope.$broadcast('notification', {
                         message: response.message,
                         type: "success"
@@ -40,7 +49,32 @@ postsModule.controller('PostsCtrl', ['$scope', '$stateParams', '$rootScope', '$l
                         message: "Error creating draft post.",
                         type: "danger"
                     }, true);
-                });*/
+                });
+            }
+        }
+
+        function editPost() {
+            var tags = [];
+
+            $scope.tags.forEach(function(item, idx) {
+                tags.push(item.text);
+            });
+            if ($scope.draftPostForm.$valid) {
+                $scope.post.tags = tags;
+                $scope.post.postBody = $scope.postBody;
+
+                PostService.modifyPost($scope.post._id, $scope.post).then(function(response) {
+                    $rootScope.$broadcast('notification', {
+                        message: response.message,
+                        type: "success"
+                    }, true);
+                    $location.path('/home/posts');
+                }, function() {
+                    $rootScope.$broadcast('notification', {
+                        message: "Error modifying post.",
+                        type: "danger"
+                    }, true);
+                });
             }
         }
 
@@ -68,6 +102,7 @@ postsModule.controller('PostsCtrl', ['$scope', '$stateParams', '$rootScope', '$l
 
                     $scope.tags = tags;
                 }
+                $scope.postBody = response.data.postBody;
                 $scope.post = response.data;
             }, function() {
                 $rootScope.$broadcast('notification', {
@@ -168,25 +203,3 @@ postsModule.controller('PostsCtrl', ['$scope', '$stateParams', '$rootScope', '$l
         }
     }
 ]);
-
-postsModule.directive('compile', ['$compile', function ($compile) {
-    return function(scope, element, attrs) {
-        scope.$watch(
-            function(scope) {
-                // watch the 'compile' expression for changes
-                return scope.$eval(attrs.compile);
-            },
-            function(value) {
-                // when the 'compile' expression changes
-                // assign it into the current DOM
-                element.html(value);
-
-                // compile the new DOM and link it to the current
-                // scope.
-                // NOTE: we only compile .childNodes so that
-                // we don't get into infinite loop compiling ourselves
-                $compile(element.contents())(scope);
-            }
-        );
-    };
-}])

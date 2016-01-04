@@ -1,6 +1,6 @@
 'use strict';
 var app = angular.module('app', [
-    'ngSanitize',
+    //'ngSanitize',
     'ui.bootstrap',
     'ui.bootstrap.showErrors',
     'ui.router',

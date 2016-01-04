@@ -2,7 +2,7 @@
  * @Author: pranam
  * @Date:   2014-10-30 23:37:40
  * @Last Modified by:   pranam
- * @Last Modified time: 2016-01-04 01:09:36
+ * @Last Modified time: 2016-01-04 22:00:00
  */
 
 var loginController = require('./controllers/login-controller'),
@@ -44,6 +44,8 @@ module.exports.initApp = function(exp) {
     app.put('/api/updatePass/:id', userController.updatePassword);
 
     app.post('/api/draftPost', postsController.draftPost);
+
+    app.post('/api/modifyPost/:id', postsController.modifyPost);
 
     app.get('/api/posts', postsController.getPosts);
 

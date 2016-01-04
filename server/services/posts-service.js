@@ -2,7 +2,7 @@
  * @Author: pranam
  * @Date:   2014-11-13 22:34:19
  * @Last Modified by:   pranam
- * @Last Modified time: 2016-01-04 01:05:36
+ * @Last Modified time: 2016-01-04 22:04:37
  */
 
 var mongodb = require('mongodb'),
@@ -51,9 +51,6 @@ module.exports = {
 
         return deferred.promise;
     },
-    editPost: function(post) {
-
-    },
     draftPost: function(post) {
         var deferred = Q.defer();
 
@@ -63,6 +60,27 @@ module.exports = {
             } else {
                 deferred.resolve(posts[0]);
             }
+        });
+
+        return deferred.promise;
+    },
+    modifyPost: function(postId, post) {
+        var deferred = Q.defer();
+
+        delete post._id;
+
+        SETTINGS.DB.collection('posts').findAndModify({
+            _id: new mongodb.ObjectID(postId)
+        }, [], {
+            $set: post
+        }, {
+            'new': true
+        }, function(err, post) {
+            if (err) {
+                deferred.reject(new Error("Error updating post."));
+            }
+
+            deferred.resolve(post);
         });
 
         return deferred.promise;

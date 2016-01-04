@@ -39,7 +39,6 @@ body {
     padding-top: 7px;
 }
 
-
 .login-alert {
     margin-top: 30px;
 }
@@ -48,7 +47,9 @@ hr {
     border-top: 1px solid #1c1e22;
 }
 
+
 /* Signin Form Style Block */
+
 .form-signin {
     max-width: 330px;
     padding: 15px;
@@ -90,7 +91,9 @@ hr {
     border-top-right-radius: 0;*/
 }
 
+
 /* ShowErrors Style Block */
+
 .form-group .help-block,
 .has-success .help-block {
     display: none;
@@ -107,4 +110,11 @@ hr {
 
 .form-signin.has-error .help-block {
     display: block;
+}
+
+.help-block-summernote {
+    display: block;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    color: #ee5f5b;
 }
