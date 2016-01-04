@@ -30,10 +30,44 @@
                 </div>
             </div>
             <hr>
-            <div class="form-group">
-                <label for="summernote" class="col-sm-2 control-label">Body</label>
+            <!-- <div class="form-group">
+                <label class="col-sm-2 control-label">Body</label>
                 <div class="col-sm-10">
-                    <summernote height="300" ng-model="postBody"></summernote>
+                    <button type="button" class="btn btn-warning" ng-click="insertPostItem('text', -1)">Insert Text</button>
+                    <button type="button" class="btn btn-warning" ng-click="insertPostItem('code', -1)">Insert Code</button>
+                </div>
+            </div>
+            <div class="form-group" ng-repeat="postItem in postBody">
+                <ng-form name="innerForm">
+                    <div class="form-group">
+                        <div class="col-sm-9 col-sm-offset-2">
+                            <div ng-if="postItem.type == 'text'">
+                                <summernote height="300" ng-model="postItem.value"></summernote>
+                            </div>
+                            <div ng-if="postItem.type == 'code'">
+                                <input type="text" class="form-control" placeholder="GitHub GistId" ng-model="postItem.value" >
+                            </div>
+                        </div>
+                        <a ng-click="deletePostItem($index)" type="button" class="btn btn-warning"><span class="fa fa-trash-o"></span></a>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-9 col-sm-offset-2">
+                            <button type="button" class="btn btn-warning" ng-click="insertPostItem('text', $index)">Insert Text</button>
+                            <button type="button" class="btn btn-warning" ng-click="insertPostItem('code', $index)">Insert Code</button>
+                        </div>
+                    </div>
+                </ng-form>
+            </div> -->
+            <!-- <div class="form-group">
+                <label class="col-sm-2 control-label">Body</label>
+                <div class="col-sm-10">
+                    <button type="button" class="btn btn-warning">Insert Text</button>
+                    <button type="button" class="btn btn-warning">Insert Code</button>
+                </div>
+            </div> -->
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <summernote height="300" ng-model="body"></summernote>
                 </div>
             </div>
             <div class="form-group">
@@ -45,3 +79,7 @@
         </form>
     </div>
 </div>
+
+<div compile="body"></div>
+<!-- <div ng-bind-html="body"></div> -->
+<!-- <div>{{body}}</div> -->
