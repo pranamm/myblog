@@ -1,5 +1,13 @@
-@media (min-width: 768px){
-	.navbar {
-		border-radius: 0px;
-	}
+body {
+    margin-top: 100px;
+}
+
+@media (min-width: 768px) {
+    .navbar {
+        border-radius: 0px;
+    }
+}
+
+.img-responsive {
+    width: 100%;
 }
