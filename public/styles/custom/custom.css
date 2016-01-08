@@ -11,3 +11,12 @@ body {
 .img-responsive {
     width: 100%;
 }
+
+.panel-caption {
+	margin-bottom: 0px;
+	margin-top: 10px;
+}
+
+.skill-gutter{
+	margin-right: 3px;
+}
