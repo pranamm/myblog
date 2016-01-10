@@ -2,7 +2,7 @@
  * @Author: pranam
  * @Date:   2014-11-13 22:34:19
  * @Last Modified by:   pranam
- * @Last Modified time: 2016-01-04 22:04:37
+ * @Last Modified time: 2016-01-09 23:54:45
  */
 
 var mongodb = require('mongodb'),
@@ -10,16 +10,28 @@ var mongodb = require('mongodb'),
     SETTINGS = require('../../settings');
 
 module.exports = {
-    getPosts: function() {
+    getPosts: function(filter, pageNumber) {
         var deferred = Q.defer();
 
-        SETTINGS.DB.collection('posts').find().toArray(function(err, posts) {
-            if (err) {
-                deferred.reject(new Error("Error getting posts."));
-            } else {
-                deferred.resolve(posts);
-            }
-        });
+        if (pageNumber) {
+            SETTINGS.DB.collection('posts').find(filter).sort([
+                ['_id', -1]
+            ]).skip((pageNumber - 1) * SETTINGS.POST_PAGESIZE).limit(SETTINGS.POST_PAGESIZE).toArray(function(err, posts) {
+                if (err) {
+                    deferred.reject(new Error("Error getting posts."));
+                } else {
+                    deferred.resolve(posts);
+                }
+            });
+        } else {
+            SETTINGS.DB.collection('posts').find(filter).toArray(function(err, posts) {
+                if (err) {
+                    deferred.reject(new Error("Error getting posts."));
+                } else {
+                    deferred.resolve(posts);
+                }
+            });
+        }
 
         return deferred.promise;
     },

@@ -2,7 +2,7 @@
  * @Author: pranam
  * @Date:   2014-10-30 23:37:40
  * @Last Modified by:   pranam
- * @Last Modified time: 2016-01-04 22:00:00
+ * @Last Modified time: 2016-01-09 22:19:48
  */
 
 var loginController = require('./controllers/login-controller'),
@@ -35,25 +35,27 @@ module.exports.initApp = function(exp) {
         res.send(req.isAuthenticated() ? req.user : '0');
     });
 
-    app.post('/api/user', userController.registerUser);
+    app.post('/api/user', auth, userController.registerUser);
 
     app.get('/api/profile', userController.getProfile);
 
-    app.put('/api/profile/:id', userController.updateProfile);
+    app.put('/api/profile/:id', auth, userController.updateProfile);
 
-    app.put('/api/updatePass/:id', userController.updatePassword);
+    app.put('/api/updatePass/:id', auth, userController.updatePassword);
 
-    app.post('/api/draftPost', postsController.draftPost);
+    app.post('/api/draftPost', auth, postsController.draftPost);
 
-    app.post('/api/modifyPost/:id', postsController.modifyPost);
+    app.post('/api/modifyPost/:id', auth, postsController.modifyPost);
 
-    app.get('/api/posts', postsController.getPosts);
+    app.get('/api/posts', auth, postsController.getPosts);
+
+    app.get('/api/clientPosts/:pageNumber', postsController.getPostsForClient);
 
     app.get('/api/post/:id', postsController.getPost);
 
-    app.post('/api/publishPosts', postsController.publishPosts);
+    app.post('/api/publishPosts', auth, postsController.publishPosts);
 
-    app.post('/api/unPublishPosts', postsController.unPublishPosts);
+    app.post('/api/unPublishPosts', auth, postsController.unPublishPosts);
 
-    app.post('/api/deletePosts', postsController.deletePosts);
+    app.post('/api/deletePosts', auth, postsController.deletePosts);
 }

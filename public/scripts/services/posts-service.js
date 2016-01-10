@@ -1,12 +1,12 @@
-profileModule.factory('ProfileService', ['$http', '$q',
+postsModule.factory('PostsService', ['$http', '$q',
     function($http, $q) {
         'use strict';
-        var profileService = {};
+        var postsService = {};
 
-        profileService.getProfile = function() {
+        postsService.getPosts = function(pageNumber) {
             var deferred = $q.defer();
 
-            $http.get('/api/profile').then(function(res) {
+            $http.get('/api/clientPosts/' + pageNumber).then(function(res) {
                 var data = res.data;
                 deferred.resolve(data);
             }, function(err) {
@@ -16,6 +16,6 @@ profileModule.factory('ProfileService', ['$http', '$q',
             return deferred.promise;
         };
 
-        return profileService;
+        return postsService;
     }
 ]);

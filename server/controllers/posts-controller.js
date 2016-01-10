@@ -2,7 +2,7 @@
  * @Author: pranam
  * @Date:   2014-11-13 22:34:02
  * @Last Modified by:   pranam
- * @Last Modified time: 2016-01-04 22:02:18
+ * @Last Modified time: 2016-01-09 23:51:22
  */
 
 var postService = require('../services/posts-service'),
@@ -11,9 +11,33 @@ var postService = require('../services/posts-service'),
 var PostController = function() {};
 
 PostController.prototype.getPosts = function(req, res) {
-    postService.getPosts()
+    postService.getPosts({})
         .then(function(posts) {
             if (posts) {
+                SETTINGS.RESPONSE.errCode = 0;
+                SETTINGS.RESPONSE.message = "";
+                SETTINGS.RESPONSE.data = posts
+
+                res.send(SETTINGS.RESPONSE);
+            }
+        })
+        .fail(function(err) {
+            SETTINGS.RESPONSE.errCode = 1;
+            SETTINGS.RESPONSE.message = err.message;
+            SETTINGS.RESPONSE.data = null;
+            res.send(SETTINGS.RESPONSE);
+        });
+}
+
+PostController.prototype.getPostsForClient = function(req, res) {
+    postService.getPosts({
+            'isPublished': true
+        }, req.params.pageNumber)
+        .then(function(posts) {
+            if (posts) {
+                posts.forEach(function(item, idx) {
+                    item.createdOn = (item._id).getTimestamp()
+                })
                 SETTINGS.RESPONSE.errCode = 0;
                 SETTINGS.RESPONSE.message = "";
                 SETTINGS.RESPONSE.data = posts
