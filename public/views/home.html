@@ -1,12 +1,12 @@
 <div class="container">
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-8" ng-controller="PostsCtrl">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <img src="../images/html5_css_javascript.png" class="img-responsive">
                 </div>
             </div>
-            <div ng-controller="PostsCtrl">
+            <div>
                 <div class="post-short" ng-repeat="post in posts">
                     <h1><a href="">{{post.title}}</a></h1>
                     <hr>
@@ -20,6 +20,12 @@
                     <br/>
                 </div>
             </div>
+            <nav>
+                <ul class="pager">
+                    <li class="previous" ng-class="{ 'disabled': currentPage == 1}"><a ng-click="prevPage()"><span aria-hidden="true">&larr;</span> Older</a></li>
+                    <li class="next" ng-class="{ disabled: currentPage == totalPages}"><a ng-click="nextPage()">Newer <span aria-hidden="true">&rarr;</span></a></li>
+                </ul>
+            </nav>
         </div>
         <div class="col-lg-4">
             <div class="panel panel-info">

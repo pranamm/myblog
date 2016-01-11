@@ -2,7 +2,7 @@
  * @Author: pranam
  * @Date:   2014-11-13 22:34:02
  * @Last Modified by:   pranam
- * @Last Modified time: 2016-01-09 23:51:22
+ * @Last Modified time: 2016-01-11 23:28:53
  */
 
 var postService = require('../services/posts-service'),
@@ -33,14 +33,19 @@ PostController.prototype.getPostsForClient = function(req, res) {
     postService.getPosts({
             'isPublished': true
         }, req.params.pageNumber)
-        .then(function(posts) {
+        .then(function(results) {
+            var posts = results[0];
+            var postCount = results[1];
             if (posts) {
                 posts.forEach(function(item, idx) {
                     item.createdOn = (item._id).getTimestamp()
                 })
                 SETTINGS.RESPONSE.errCode = 0;
                 SETTINGS.RESPONSE.message = "";
-                SETTINGS.RESPONSE.data = posts
+                SETTINGS.RESPONSE.data = {
+                    posts: posts,
+                    totalPages: postCount
+                }
 
                 res.send(SETTINGS.RESPONSE);
             }

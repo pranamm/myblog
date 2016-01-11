@@ -2,11 +2,12 @@
  * @Author: pranam
  * @Date:   2014-11-13 22:34:19
  * @Last Modified by:   pranam
- * @Last Modified time: 2016-01-09 23:54:45
+ * @Last Modified time: 2016-01-11 23:34:27
  */
 
 var mongodb = require('mongodb'),
     Q = require('q'),
+    async = require('async'),
     SETTINGS = require('../../settings');
 
 module.exports = {
@@ -14,15 +15,36 @@ module.exports = {
         var deferred = Q.defer();
 
         if (pageNumber) {
-            SETTINGS.DB.collection('posts').find(filter).sort([
-                ['_id', -1]
-            ]).skip((pageNumber - 1) * SETTINGS.POST_PAGESIZE).limit(SETTINGS.POST_PAGESIZE).toArray(function(err, posts) {
-                if (err) {
-                    deferred.reject(new Error("Error getting posts."));
-                } else {
-                    deferred.resolve(posts);
-                }
-            });
+            async.parallel(
+                [
+                    function(callback) {
+                        SETTINGS.DB.collection('posts').find(filter).sort([
+                            ['_id', -1]
+                        ]).skip((pageNumber - 1) * SETTINGS.POST_PAGESIZE).limit(SETTINGS.POST_PAGESIZE).toArray(function(err, posts) {
+                            if (err) {
+                                callback(new Error("Error getting posts."), null);
+                            } else {
+                                callback(null, posts);
+                            }
+                        });
+                    },
+                    function(callback) {
+                        SETTINGS.DB.collection('posts').count(function(err, postCount) {
+                            if (err) {
+                                callback(new Error("Error getting post count."), null);
+                            } else {
+                                callback(null, Math.ceil(postCount / SETTINGS.POST_PAGESIZE));
+                            }
+                        });
+                    }
+                ],
+                function(err, results) {
+                    if (err) {
+                        deferred.reject(new Error("Error getting posts."));
+                    } else {
+                        deferred.resolve(results);
+                    }
+                });
         } else {
             SETTINGS.DB.collection('posts').find(filter).toArray(function(err, posts) {
                 if (err) {
