@@ -57,8 +57,8 @@
         <div class="panel-heading">
             <h3 class="panel-title"><i class="fa fa-tags"></i> Popular Tags:</h3>
         </div>
-        <div class="panel-body">
-            tag cloud
+        <div class="panel-body" ng-controller="HomeCtrl">
+            <jqcloud words="words" width="200" height="350" steps="7"></jqcloud>
         </div>
     </div>
     <div class="panel panel-info">

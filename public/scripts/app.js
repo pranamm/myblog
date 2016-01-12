@@ -4,6 +4,7 @@ var app = angular.module('app', [
     'ui.bootstrap',
     'ui.router',
     'gist',
+    'angular-jqcloud',
 
     'app.common',
     'app.posts',
