@@ -29,7 +29,7 @@ module.exports = {
                         });
                     },
                     function(callback) {
-                        SETTINGS.DB.collection('posts').count(function(err, postCount) {
+                        SETTINGS.DB.collection('posts').count(filter, function(err, postCount) {
                             if (err) {
                                 callback(new Error("Error getting post count."), null);
                             } else {
@@ -62,6 +62,21 @@ module.exports = {
 
         SETTINGS.DB.collection('posts').findOne({
             _id: new mongodb.ObjectID(postId)
+        }, function(err, post) {
+            if (err) {
+                deferred.reject(new Error("Error getting post."));
+            } else {
+                deferred.resolve(post);
+            }
+        });
+
+        return deferred.promise;
+    },
+    getFullPost: function(permalink) {
+        var deferred = Q.defer();
+
+        SETTINGS.DB.collection('posts').findOne({
+            permalink: permalink
         }, function(err, post) {
             if (err) {
                 deferred.reject(new Error("Error getting post."));
@@ -191,6 +206,22 @@ module.exports = {
             }
 
             deferred.resolve(msg);
+        });
+
+        return deferred.promise;
+    },
+    getTags: function(){
+        var deferred = Q.defer();
+
+        SETTINGS.DB.collection('posts').aggregate(
+            { $unwind : "$tags" },
+            { $group: {_id: "$tags", count: { $sum:1}}}
+        , function(err, result) {
+            if (err) {
+                deferred.reject(new Error("Unable to get tags."));
+            }
+
+            deferred.resolve(result);
         });
 
         return deferred.promise;

@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8" ng-init="getFullPost()">
+            <div class="post-short">
+                <h1><a href="#/{{post.permalink}}">{{post.title}}</a></h1>
+                <hr>
+                <p class="lead"><i class="fa fa-user"></i> by <a href="">{{post.author.name}}</a></p>
+                <p><i class="fa fa-calendar"></i> Posted on August 24, 2014 at 9:00 PM</p>
+                <p>
+                    <i class="fa fa-tags"></i> Tags: <a href="" ng-repeat="tag in post.tags" class="skill-gutter"><span class="badge badge-info">{{tag}}</span></a>
+                </p>
+                <div compile="post.postBody"></div>
+                <br/>
+            </div>
+        </div>
+        <div ng-include="'/views/common/right-bar.html'"></div>
+    </div>
+</div>

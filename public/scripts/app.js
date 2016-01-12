@@ -25,5 +25,12 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
             templateUrl: '../views/home.html',
             controller: 'HomeCtrl'
         })
+
+        $stateProvider.state("post", {
+            url: "/:permalink",
+            templateUrl: '../views/posts/post.html',
+            controller: 'PostsCtrl'
+        })
+
     }
 ]);

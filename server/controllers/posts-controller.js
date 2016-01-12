@@ -77,6 +77,25 @@ PostController.prototype.getPost = function(req, res) {
         });
 }
 
+PostController.prototype.getFullPost = function(req, res) {
+    postService.getFullPost(req.params.permalink)
+        .then(function(post) {
+            if (post) {
+                SETTINGS.RESPONSE.errCode = 0;
+                SETTINGS.RESPONSE.message = "";
+                SETTINGS.RESPONSE.data = post
+
+                res.send(SETTINGS.RESPONSE);
+            }
+        })
+        .fail(function(err) {
+            SETTINGS.RESPONSE.errCode = 1;
+            SETTINGS.RESPONSE.message = err.message;
+            SETTINGS.RESPONSE.data = null;
+            res.send(SETTINGS.RESPONSE);
+        });
+}
+
 PostController.prototype.createPost = function(req, res) {
     var post = {
         title: req.body.title,
@@ -212,6 +231,25 @@ PostController.prototype.deletePosts = function(req, res) {
                 SETTINGS.RESPONSE.errCode = 0;
                 SETTINGS.RESPONSE.message = "Posts successfully deleted.";
                 SETTINGS.RESPONSE.data = msg
+
+                res.send(SETTINGS.RESPONSE);
+            }
+        })
+        .fail(function(err) {
+            SETTINGS.RESPONSE.errCode = 1;
+            SETTINGS.RESPONSE.message = err.message;
+            SETTINGS.RESPONSE.data = null;
+            res.send(SETTINGS.RESPONSE);
+        });
+}
+
+PostController.prototype.getTags = function(req, res) {
+    postService.getTags()
+        .then(function(tags) {
+            if (tags) {
+                SETTINGS.RESPONSE.errCode = 0;
+                SETTINGS.RESPONSE.message = "Tags retrived successfully.";
+                SETTINGS.RESPONSE.data = tags
 
                 res.send(SETTINGS.RESPONSE);
             }

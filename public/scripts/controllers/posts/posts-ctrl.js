@@ -1,5 +1,5 @@
-postsModule.controller('PostsCtrl', ['$scope', 'PostsService',
-    function($scope, PostsService) {
+postsModule.controller('PostsCtrl', ['$scope', '$stateParams', 'PostsService',
+    function($scope, $stateParams, PostsService) {
         'use strict';
 
         $scope.currentPage = 1;
@@ -16,7 +16,13 @@ postsModule.controller('PostsCtrl', ['$scope', 'PostsService',
             });
         }
 
-
+        $scope.getFullPost = function(){
+            PostsService.getFullPost($stateParams.permalink).then(function(res) {
+                $scope.post = res.data;
+            }, function(err) {
+                deferred.reject(err);
+            });
+        };
 
         $scope.nextPage = function() {
             if ($scope.currentPage < $scope.totalPages) {
