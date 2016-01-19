@@ -214,8 +214,9 @@ module.exports = {
         var deferred = Q.defer();
 
         SETTINGS.DB.collection('posts').aggregate(
+            { $match: { "isPublished": true } },
             { $unwind : "$tags" },
-            { $group: {_id: "$tags", count: { $sum:1}}}
+            { $group: {_id: "$tags", weight: { $sum:1}}}
         , function(err, result) {
             if (err) {
                 deferred.reject(new Error("Unable to get tags."));

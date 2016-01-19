@@ -1,40 +1,19 @@
-commonModule.controller('HomeCtrl', ['$scope', '$stateParams', '$rootScope', '$state',
-    function($scope, $stateParams, $rootScope, $state) {
+commonModule.controller('HomeCtrl', ['$scope', 'PostsService',
+    function($scope, PostsService) {
         'use strict';
 
-        /*$rootScope.loggedInStatus = false;
-        $scope.$state = $state;
-        if ($rootScope.loggedinUser) {
-            $rootScope.loggedInStatus = true;
+        $scope.getTags = function() {
+            PostsService.getTags().then(function(res) {
+                var words = res.data;
+                words.forEach(function(item, idx){
+                    item.text = item._id;
+                    item.link = "#/tags/" + item._id;
+                })
+                console.log(words);
+                $scope.words = words;
+            }, function(err) {
+                deferred.reject(err);
+            });
         }
-
-        $scope.isCollapsed = true;
-        $scope.isSBCollapsed = true;
-        $scope.$on('$stateChangeSuccess', function() {
-            $scope.isCollapsed = true;
-            $scope.isSBCollapsed = true;
-        });*/
-        $scope.words = [{
-            text: "Lorem",
-            weight: 13
-        }, {
-            text: "Ipsum",
-            weight: 10.5
-        }, {
-            text: "Dolor",
-            weight: 9.4
-        }, {
-            text: "Sit",
-            weight: 8
-        }, {
-            text: "Amet",
-            weight: 6.2
-        }, {
-            text: "Consectetur",
-            weight: 5
-        }, {
-            text: "Adipiscing",
-            weight: 5
-        }, ];
     }
 ]);

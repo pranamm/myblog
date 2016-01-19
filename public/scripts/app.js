@@ -33,5 +33,10 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
             controller: 'PostsCtrl'
         })
 
+        $stateProvider.state("tags", {
+            url: "/tags/:tagName",
+            templateUrl: '../views/home.html',
+            controller: 'PostsCtrl'
+        }) 
     }
 ]);

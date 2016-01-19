@@ -29,6 +29,19 @@ postsModule.factory('PostsService', ['$http', '$q',
             return deferred.promise;
         }
 
+        postsService.getTags = function(){
+            var deferred = $q.defer();
+
+            $http.get('/api/tags').then(function(res) {
+                var data = res.data;
+                deferred.resolve(data);
+            }, function(err) {
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+        }
+
         return postsService;
     }
 ]);
