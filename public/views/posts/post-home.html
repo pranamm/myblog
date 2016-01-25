@@ -1,0 +1,27 @@
+<div class="col-lg-8" ng-controller="PostsCtrl">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <img src="../images/html5_css_javascript.png" class="img-responsive">
+        </div>
+    </div>
+    <div>
+        <div class="post-short" ng-repeat="post in posts">
+            <h1><a href="#/{{post.permalink}}">{{post.title}}</a></h1>
+            <hr>
+            <p class="lead"><i class="fa fa-user"></i> by <a href="">{{post.author.name}}</a></p>
+            <p><i class="fa fa-calendar"></i> Posted on {{post.createdOn | date:"MMM dd, yyyy 'at' hh:mm a"}}</p>
+            <p>
+                <i class="fa fa-tags"></i> Tags: <a href="" ng-repeat="tag in post.tags" class="skill-gutter"><span class="badge badge-info">{{tag}}</span></a>
+            </p>
+            <div compile="post.postBody"></div>
+            <a href="#/{{post.permalink}}">more</a>
+            <br/>
+        </div>
+    </div>
+    <nav>
+        <ul class="pager">
+            <li class="previous" ng-class="{ 'disabled': currentPage == 1}"><a ng-click="prevPage()"><span aria-hidden="true">&larr;</span> Older</a></li>
+            <li class="next" ng-class="{ disabled: currentPage == totalPages}"><a ng-click="nextPage()">Newer <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
+</div>

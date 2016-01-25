@@ -1,6 +1,6 @@
-<div class="container">
-    <div class="row">
-        <!-- <div class="col-lg-8" ng-controller="PostsCtrl">
+<!-- <div class="container">
+    <div class="row"> -->
+        <div class="col-lg-8">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <img src="../images/html5_css_javascript.png" class="img-responsive">
@@ -13,7 +13,7 @@
                     <p class="lead"><i class="fa fa-user"></i> by <a href="">{{post.author.name}}</a></p>
                     <p><i class="fa fa-calendar"></i> Posted on {{post.createdOn | date:"MMM dd, yyyy 'at' hh:mm a"}}</p>
                     <p>
-                        <i class="fa fa-tags"></i> Tags: <a href="" ng-repeat="tag in post.tags" class="skill-gutter"><span class="badge badge-info">{{tag}}</span></a>
+                        <i class="fa fa-tags"></i> Tags: <a href="#/tags/{{tag}}" ng-repeat="tag in post.tags" class="skill-gutter"><span class="badge badge-info">{{tag}}</span></a>
                     </p>
                     <div compile="post.postBody"></div>
                     <a href="#/{{post.permalink}}">more</a>
@@ -26,8 +26,8 @@
                     <li class="next" ng-class="{ disabled: currentPage == totalPages}"><a ng-click="nextPage()">Newer <span aria-hidden="true">&rarr;</span></a></li>
                 </ul>
             </nav>
-        </div> -->
-        <div ui-view></div>
-        <div ng-include="'/views/common/right-bar.html'"></div>
+        </div>
+        <!-- <div ng-include="'/views/common/right-bar.html'"></div>
     </div>
 </div>
+ -->

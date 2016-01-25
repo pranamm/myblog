@@ -22,8 +22,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
         $urlRouterProvider.otherwise('/home');
 
         $stateProvider.state("home", {
-            url: "/home",
+            url: "/",
+            abstract: true,
             templateUrl: '../views/home.html',
+            //controller: 'HomeCtrl'
+        })
+
+        $stateProvider.state("home.posts", {
+            url: "/home",
+            templateUrl: '../views/posts/post-home.html',
             controller: 'HomeCtrl'
         })
 
@@ -35,7 +42,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
 
         $stateProvider.state("tags", {
             url: "/tags/:tagName",
-            templateUrl: '../views/home.html',
+            templateUrl: '../views/posts/post-tags.html',
             controller: 'PostsCtrl'
         }) 
     }

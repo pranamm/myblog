@@ -17,7 +17,12 @@
 
 <body ng-controller="AppCtrl">
     <div ng-include="'/views/common/header.html'"></div>
-    <div ui-view></div>
+    <div class="container">
+        <div class="row">
+            <div ui-view></div>
+            <div ng-include="'/views/common/right-bar.html'"></div>
+        </div>
+    </div>
     <div ng-include="'/views/common/footer.html'"></div>
     <script src="/vendor/jquery/jquery.min.js"></script>
     <script src="/vendor/jqCloud/jqCloud.min.js"></script>

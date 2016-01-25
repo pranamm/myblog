@@ -51,6 +51,8 @@ module.exports.initApp = function(exp) {
 
     app.get('/api/clientPosts/:pageNumber', postsController.getPostsForClient);
 
+    app.get('/api/clientPostsByTags/:tag/:pageNumber', postsController.getPostsForClientByTags);
+
     app.get('/api/post/:id', auth, postsController.getPost);
 
     app.get('/api/fullPost/:permalink', postsController.getFullPost);

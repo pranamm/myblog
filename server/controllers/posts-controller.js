@@ -58,6 +58,36 @@ PostController.prototype.getPostsForClient = function(req, res) {
         });
 }
 
+PostController.prototype.getPostsForClientByTags = function(req, res) {
+    postService.getPosts({
+            'isPublished': true,
+            'tags': req.params.tag
+        }, req.params.pageNumber)
+        .then(function(results) {
+            var posts = results[0];
+            var postCount = results[1];
+            if (posts) {
+                posts.forEach(function(item, idx) {
+                    item.createdOn = (item._id).getTimestamp()
+                })
+                SETTINGS.RESPONSE.errCode = 0;
+                SETTINGS.RESPONSE.message = "";
+                SETTINGS.RESPONSE.data = {
+                    posts: posts,
+                    totalPages: postCount
+                }
+
+                res.send(SETTINGS.RESPONSE);
+            }
+        })
+        .fail(function(err) {
+            SETTINGS.RESPONSE.errCode = 1;
+            SETTINGS.RESPONSE.message = err.message;
+            SETTINGS.RESPONSE.data = null;
+            res.send(SETTINGS.RESPONSE);
+        });
+}
+
 PostController.prototype.getPost = function(req, res) {
     postService.getPost(req.params.id)
         .then(function(post) {
